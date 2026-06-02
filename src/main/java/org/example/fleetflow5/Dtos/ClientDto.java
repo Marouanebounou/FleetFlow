@@ -13,4 +13,5 @@ import lombok.Setter;
 public class ClientDto extends UserDto{
     @NotBlank(message = "Ville is Obligatory")
     private String ville;
+    private String phone;
 }

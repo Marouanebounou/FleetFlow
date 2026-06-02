@@ -1,13 +1,11 @@
 package org.example.fleetflow5.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.fleetflow5.Enums.StatusVehicle;
 
 @Entity
 @AllArgsConstructor
@@ -20,5 +18,6 @@ public class Vehicle {
     private long id;
     private String plate;
     private int capacity;
-
+    @Enumerated(EnumType.STRING)
+    private StatusVehicle status;
 }

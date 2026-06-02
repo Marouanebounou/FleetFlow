@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.fleetflow5.Enums.StatusVehicle;
 
 @Getter
 @Setter
@@ -17,4 +18,5 @@ public class VehicleDto {
     @NotBlank(message = "Capacity is Obligatory")
     @Positive(message = "Capacity must be a positive number")
     private int capacity;
+    private StatusVehicle status;
 }

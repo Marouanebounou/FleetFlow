@@ -1,11 +1,15 @@
 package org.example.fleetflow5.Models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.fleetflow5.Enums.Role;
 
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Getter
+@Setter
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
