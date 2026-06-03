@@ -13,15 +13,11 @@ import org.example.fleetflow5.Enums.Role;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
-    private long id;
-    @NotBlank(message = "Name is Obligatory")
-    private String name;
+public class UserLoginDto {
     @NotBlank(message = "Email is Obligatory")
     @Email(message = "Email format is incorrect")
     private String email;
     @NotBlank(message = "Password is obligatory")
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
-    private Role role;
 }

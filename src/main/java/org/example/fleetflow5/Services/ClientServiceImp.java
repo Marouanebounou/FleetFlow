@@ -5,6 +5,7 @@ import org.example.fleetflow5.Dtos.ClientDto;
 import org.example.fleetflow5.Mappers.ClientMapper;
 import org.example.fleetflow5.Models.Client;
 import org.example.fleetflow5.Repositories.ClientRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +26,8 @@ public class ClientServiceImp implements ClientSevice{
         clientRepository.deleteById(id);
     }
 
-    public List<ClientDto> getAllClient() {
-        return clientRepository.findAll().stream().map(clientMapper::toDto).toList();
+    public List<ClientDto> getAllClient(Pageable pageable) {
+        return clientRepository.findAll(pageable).stream().map(clientMapper::toDto).toList();
     }
 
     public ClientDto update(long id, ClientDto client) {

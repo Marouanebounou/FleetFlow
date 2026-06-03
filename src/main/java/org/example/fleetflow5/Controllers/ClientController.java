@@ -1,0 +1,46 @@
+package org.example.fleetflow5.Controllers;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.example.fleetflow5.Dtos.ClientDto;
+import org.example.fleetflow5.Services.ClientServiceImp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/client")
+@RequiredArgsConstructor
+public class ClientController {
+
+    private final ClientServiceImp clientService;
+
+    @PreAuthorize("hasAnyRole('ADMIN' , 'MANAGER')")
+    @PostMapping
+    public ClientDto save(@Valid @RequestBody ClientDto client){
+        return clientService.save(client);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN' , 'MANAGER')")
+    @GetMapping
+    public List<ClientDto> getAllClient(@PageableDefault(page = 0 , size = 5 , sort = "ville") Pageable pageable){
+        return clientService.getAllClient(pageable);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN' , 'MANAGER')")
+    @DeleteMapping("{id}")
+    public void getClientById(@Valid @PathVariable long id){
+        clientService.delete(id);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN' , 'MANAGER')")
+    @PutMapping("{id}")
+    public ClientDto update(@PathVariable long id, @Valid @RequestBody ClientDto client){
+        return clientService.update(id, client);
+    }
+
+}

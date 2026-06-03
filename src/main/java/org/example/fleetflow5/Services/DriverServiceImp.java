@@ -5,6 +5,7 @@ import org.example.fleetflow5.Dtos.DriverDto;
 import org.example.fleetflow5.Mappers.DriverMapper;
 import org.example.fleetflow5.Models.Driver;
 import org.example.fleetflow5.Repositories.DriverRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,8 +47,8 @@ public class DriverServiceImp implements DriverService {
     }
 
     @Override
-    public List<DriverDto> listAvailableDrivers() {
-        return driverRepository.findByIsAvailableTrue().stream()
+    public List<DriverDto> listAvailableDrivers(Pageable pageable) {
+        return driverRepository.findByIsAvailableTrue(pageable).stream()
                 .map(driverMapper::toDto)
                 .toList();
     }

@@ -1,7 +1,7 @@
 package org.example.fleetflow5.Services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.fleetflow5.Dtos.UserDto;
+import org.example.fleetflow5.Dtos.UserRegisterDto;
 import org.example.fleetflow5.Mappers.UserMapper;
 import org.example.fleetflow5.Models.Client;
 import org.example.fleetflow5.Repositories.ClientRepository;
@@ -15,12 +15,12 @@ public class UserServiceImp implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public UserDto saveUser(UserDto userDto) {
+    public UserRegisterDto saveUser(UserRegisterDto userRegisterDto) {
         Client client = new Client();
-        client.setName(userDto.getName());
-        client.setEmail(userDto.getEmail());
-        client.setPassword(userDto.getPassword());
-        client.setRole(userDto.getRole());
+        client.setName(userRegisterDto.getName());
+        client.setEmail(userRegisterDto.getEmail());
+        client.setPassword(userRegisterDto.getPassword());
+        client.setRole(userRegisterDto.getRole());
         Client saved = clientRepository.save(client);
         return userMapper.toDto(saved);
     }

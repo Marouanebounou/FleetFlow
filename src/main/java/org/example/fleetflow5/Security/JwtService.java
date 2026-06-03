@@ -3,6 +3,7 @@ package org.example.fleetflow5.Security;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.example.fleetflow5.Models.User;
 import org.example.fleetflow5.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
     @Value("${jwt.secret}")
@@ -21,8 +23,8 @@ public class JwtService {
 
     @Value("${jwt.expiration}")
     private long expiration;
-    @Autowired
-    private UserRepository userRepository;
+
+    private final UserRepository userRepository;
 
     private SecretKey getSigninSecretKey(){
         byte[] keyBytes = Decoders.BASE64.decode(secret);

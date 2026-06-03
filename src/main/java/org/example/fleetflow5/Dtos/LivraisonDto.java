@@ -1,5 +1,7 @@
 package org.example.fleetflow5.Dtos;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -27,6 +29,7 @@ public class LivraisonDto {
     private String finishAdresse;
 
     @NotNull(message = "Delivery status is obligatory")
+    @Enumerated(EnumType.STRING)
     private StatutLivraison statut;
 
     private Long driverId;

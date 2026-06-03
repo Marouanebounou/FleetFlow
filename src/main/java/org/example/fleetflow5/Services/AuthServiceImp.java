@@ -1,7 +1,8 @@
 package org.example.fleetflow5.Services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.fleetflow5.Dtos.UserDto;
+import org.example.fleetflow5.Dtos.UserLoginDto;
+import org.example.fleetflow5.Dtos.UserRegisterDto;
 import org.example.fleetflow5.Enums.Role;
 import org.example.fleetflow5.Models.User;
 import org.example.fleetflow5.Repositories.UserRepository;
@@ -16,35 +17,35 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImp implements AuthService{
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private JwtService jwtService;
-    private UserRepository userRepository;
-    private UserService userService;
+    private final JwtService jwtService;
+    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Override
-    public String register(UserDto userDto) {
-        if (userRepository.findByEmail(userDto.getEmail()) != null){
+    public String register(UserRegisterDto userRegisterDto) {
+        if (userRepository.findByEmail(userRegisterDto.getEmail()) != null){
             throw  new IllegalArgumentException("Email already exists");
         }
-        if (userDto.getRole() == null){
-            userDto.setRole(Role.ROLE_CLIENT);
+        if (userRegisterDto.getRole() == null){
+            userRegisterDto.setRole(Role.ROLE_CLIENT);
         }
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        userService.saveUser(userDto);
-        return jwtService.generateToken(userDto.getEmail());
+        userRegisterDto.setPassword(passwordEncoder.encode(userRegisterDto.getPassword()));
+        userService.saveUser(userRegisterDto);
+        return jwtService.generateToken(userRegisterDto.getEmail());
     }
 
     @Override
-    public String login(UserDto userDto){
-        if (userRepository.existsUserByEmail(userDto.getEmail())){
+    public String login(UserLoginDto userLoginDto){
+        if (!userRepository.existsUserByEmail(userLoginDto.getEmail())){
             throw new IllegalArgumentException("Invalid Credentials");
         }
-        User user = userRepository.findByEmail(userDto.getEmail());
-        if (!passwordEncoder.matches(userDto.getPassword() , user.getPassword())){
+        User user = userRepository.findByEmail(userLoginDto.getEmail());
+        if (!passwordEncoder.matches(userLoginDto.getPassword() , user.getPassword())){
             throw new IllegalArgumentException("Invalid Credentials");
         }
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                    userDto.getEmail(), userDto.getPassword()
+                        userLoginDto.getEmail(), userLoginDto.getPassword()
                 )
         );
 

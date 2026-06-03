@@ -12,6 +12,7 @@ import org.example.fleetflow5.Repositories.ClientRepository;
 import org.example.fleetflow5.Repositories.DriverRepository;
 import org.example.fleetflow5.Repositories.LivraisonRepository;
 import org.example.fleetflow5.Repositories.VehicleRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -90,8 +91,8 @@ public class LivraisonServiceImp implements LivraisonService {
     }
 
     @Override
-    public List<LivraisonDto> listAllLivraisons() {
-        return livraisonRepository.findAll().stream()
+    public List<LivraisonDto> listAllLivraisons(Pageable pageable) {
+        return livraisonRepository.findAll(pageable).stream()
                 .map(livraisonMapper::toDto)
                 .toList();
     }

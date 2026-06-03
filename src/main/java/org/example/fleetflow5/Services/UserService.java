@@ -1,7 +1,7 @@
 package org.example.fleetflow5.Services;
 
-import org.example.fleetflow5.Dtos.UserDto;
+import org.example.fleetflow5.Dtos.UserRegisterDto;
 
 public interface UserService {
-    UserDto saveUser(UserDto userDto);
+    UserRegisterDto saveUser(UserRegisterDto userRegisterDto);
 }

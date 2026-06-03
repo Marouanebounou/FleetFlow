@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientDto extends UserDto{
+public class ClientDto extends UserRegisterDto {
     @NotBlank(message = "Ville is Obligatory")
     private String ville;
     private String phone;
